@@ -1,28 +1,39 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { PureComponent } from 'react';
 
-class App extends Component {
+import getItems from './utils/getItems';
+import getRandomBackground from './utils/getRandomBackground';
+import ListItem from './ListItem';
+import { Wrapper, Container, Title } from './ui';
+
+export default class App extends PureComponent {
+  state = {
+    backgroundColor: '#eee'
+  };
+
+  toggleBackground = () =>
+    this.setState(state => ({
+      backgroundColor: getRandomBackground(state.backgroundColor)
+    }));
+
   render() {
+    const items = getItems(999);
+    const itemsToShow = items.slice(0, 5);
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <Wrapper backgroundColor={this.state.backgroundColor}>
+        <Container>
+          <Title>Performance Monitoring</Title>
+          <button onClick={this.toggleBackground}>Toggle background</button>
+          {itemsToShow.map(item => (
+            <ListItem
+              handleOnClick={number =>
+                console.log(`clicked :-) number ${number}`)
+              }
+              key={item}
+              index={item}
+            />
+          ))}
+        </Container>
+      </Wrapper>
     );
   }
 }
-
-export default App;
