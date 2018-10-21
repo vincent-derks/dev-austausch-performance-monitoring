@@ -1,11 +1,11 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 
 import getItems from './utils/getItems';
 import getRandomBackground from './utils/getRandomBackground';
 import ListItem from './ListItem';
 import { Wrapper, Container, Title } from './ui';
 
-export default class App extends PureComponent {
+export default class App extends Component {
   state = {
     backgroundColor: '#eee'
   };
